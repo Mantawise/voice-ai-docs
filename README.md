@@ -157,25 +157,6 @@ By default the QR code links to the Mantawise-hosted transcript viewer — no se
 ```tsx
 ```
 
-### Warnings
-
-| Prop | Type | Description |
-|---|---|---|
-| `enabledWarnings` | `FlightWarning[]` | Override which warnings are shown to passengers at this kiosk. When omitted, the location's default warnings apply. |
-
-Available warnings:
-| Value | Trigger | When to disable |
-|---|---|---|
-| `"departing_soon"` | Flight departs within 60 minutes | — (recommended to keep enabled) |
-| `"inbound_flight"` | Passenger entered an arriving flight number | — (recommended to keep enabled) |
-| `"bus_gate"` | Gate requires a bus transfer to aircraft | If your location doesn't have bus gates |
-
-Example:
-```tsx
-// Disable bus gate warning (e.g. at a location with no bus gates)
-enabledWarnings={['departing_soon', 'inbound_flight']}
-```
-
 ### Development
 
 | Prop | Type | Description |
