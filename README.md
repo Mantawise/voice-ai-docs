@@ -92,7 +92,7 @@ The component fills 100% of its parent container. Wrap it in a `<div>` with expl
 | Prop | Type | Default | Description |
 |---|---|---|---|
 | `mode` | `"kiosk" \| "mobile"` | `"kiosk"` | `kiosk`: inactivity timer auto-resets to home after 60s. `mobile`: no auto-reset. |
-| `avatar` | `boolean` | `true` | `true`: show the Anam AI avatar video. `false`: voice-only UI with a microphone icon. Use `false` for native mobile app WebViews — the Anam avatar is not supported in that context. |
+| `avatar` | `boolean` | `true` | `true`: show the AI avatar. `false`: voice-only UI with a microphone icon. Use `false` for native mobile app WebViews — the AI avatar is not supported in that context. |
 | `deviceId` | `string` | — | Unique identifier for the kiosk or device. Used for analytics. |
 
 ### Branding
@@ -288,9 +288,9 @@ To set this up, provide Mantawise with:
 - The endpoint URL of your booking API
 - An API key or bearer token with write access
 
-Mantawise will configure the ElevenLabs agent with a `create_booking` tool that calls your endpoint. The agent can then create bookings, log assistance requests, or trigger any workflow in your platform mid-conversation.
+Mantawise will configure the AI agent with a `create_booking` tool that calls your endpoint. The agent can then create bookings, log assistance requests, or trigger any workflow in your platform mid-conversation.
 
-Contact **support@mantawise.ai** to set this up for your location.
+Contact [yvar@mantawise.ai](mailto:yvar@mantawise.ai) to set this up for your location.
 
 ---
 
@@ -314,10 +314,6 @@ https://kiosk.jfk.ostrum.com
 
 Mantawise adds these to your location's `allowedOrigins` in the registry. No change is required to your SDK integration — the SDK does not need to pass any domain information.
 
-### Development
-
-During development, `allowedOrigins` is left empty for your location, which disables the CSP check. This allows you to test from `localhost` without any configuration.
-
 ---
 
 ## Troubleshooting
@@ -332,7 +328,7 @@ The API key is invalid or missing. Check that `apiKey` is correctly set and matc
 The host page must be served over HTTPS. Browsers block microphone access on plain HTTP. Also verify that the `<iframe>` element has `allow="microphone"` — the SDK sets this automatically, but any wrapper or CSP on your page must not override it.
 
 **Avatar video not showing**
-The Anam AI avatar (`avatar={true}`) requires a WebRTC-capable browser. It is not supported in native mobile app WebViews. Use `avatar={false}` for native app deployments.
+The AI avatar (`avatar={true}`) requires a WebRTC-capable browser. It is not supported in native mobile app WebViews. Use `avatar={false}` for native app deployments.
 
 **Language not switching**
 The language is selected by the passenger on the language screen inside the widget. There is no prop to pre-select or skip the language screen — this is by design.
