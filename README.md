@@ -110,20 +110,40 @@ All branding props are optional. When omitted, Mantawise defaults are used.
 
 | Prop | Type | Description |
 |---|---|---|
-| `context` | `Record<string, string>` | Key-value pairs injected into the AI agent's prompt at session start. The agent will proactively use this information in the conversation. |
+| `context` | `PassengerContext` | Passenger information injected into the AI agent at session start. The agent will proactively use this information — greeting the passenger by name and being aware of their needs before they say anything. |
+
+The `context` prop uses **canonical variable names** defined by Mantawise. Map your own data source's field names to these keys when building the prop.
+
+#### Available variables
+
+| Key | Description | Example |
+|---|---|---|
+| `passenger_name` | Full name of the passenger | `"Maria Santos"` |
+| `passenger_ssr` | Assistance type code | `"WCHS"`, `"WCHR"`, `"BLND"`, `"DEAF"` |
+| `passenger_location` | Where the passenger currently is | `"Long Stay Car Park"` |
+| `passenger_crew_name` | Name of the assigned crew member | `"James Cooper"` |
+| `passenger_crew_waiting_time` | Minutes until crew arrives | `"5"` |
 
 Example:
 ```tsx
-context={{
-  passengerName: 'Maria Santos',
-  bookingReference: 'ABC123',
-  assistanceRequired: 'wheelchair',
-}}
+<VoiceAI
+  apiKey="your-api-key"
+  locationCode="LTN"
+  context={{
+    passenger_name: boardingPass.paxName,
+    passenger_ssr: boardingPass.ssr,
+    passenger_location: kiosk.externalDisplayName,
+    passenger_crew_name: crew.crewName,
+    passenger_crew_waiting_time: String(crew.waitingTime),
+  }}
+/>
 ```
 
-The agent will greet the passenger by name and be aware of their assistance needs before they say anything.
+#### Adding a new variable in the future
 
-Context values are injected as dynamic variables into the agent's prompt. To use them, the agent must be configured by Mantawise with the corresponding `{{placeholder}}` tags. Contact [yvar@mantawise.ai](mailto:yvar@mantawise.ai) to set up context variables for your location — provide the key names you intend to pass and Mantawise will configure the agent accordingly.
+1. Request the new variable name from Mantawise — it will be added to the `PassengerContext` type and the agent prompt.
+2. Update the SDK to the latest version to get the new type.
+3. Pass the new key in your `context` prop.
 
 ### Post-Call Screen
 
@@ -196,11 +216,11 @@ By default the QR code links to the Mantawise-hosted transcript viewer — no se
 ```tsx
 <VoiceAI
   apiKey="your-api-key"
-  locationCode="JFK"
+  locationCode="LTN"
   context={{
-    passengerName: user.name,
-    flightNumber: booking.flightNumber,
-    assistanceRequired: booking.specialAssistance,
+    passenger_name: user.name,
+    passenger_ssr: user.assistanceType,
+    passenger_location: kiosk.locationName,
   }}
 />
 ```
