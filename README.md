@@ -123,6 +123,8 @@ The `context` prop uses **canonical variable names** defined by Mantawise. Map y
 | `passenger_location` | Where the passenger currently is | `"Long Stay Car Park"` |
 | `passenger_crew_name` | Name of the assigned crew member | `"James Cooper"` |
 | `passenger_crew_waiting_time` | Minutes until crew arrives | `"5"` |
+| `passenger_flight_number` | Flight number from the scanned boarding pass — when provided, the agent skips asking for it | `"FR1813"` |
+| `passenger_booking_reference` | Booking or PNR reference | `"ABC123"` |
 
 Example:
 ```tsx
