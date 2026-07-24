@@ -123,7 +123,7 @@ The `context` prop uses **canonical variable names** defined by Mantawise. Map y
 | `passenger_location` | Where the passenger currently is | `"Long Stay Car Park"` |
 | `passenger_crew_name` | Name of the assigned crew member | `"James Cooper"` |
 | `passenger_crew_waiting_time` | Minutes until crew arrives | `"5"` |
-| `passenger_flight_number` | Flight number from the scanned boarding pass — when provided, the agent skips asking for it | `"FR1813"` |
+| `passenger_flight_number` | Flight number — when provided, the agent skips asking for it. Auto-populated for locations with boarding-pass scanning enabled (see [Boarding Pass Scanning](#boarding-pass-scanning-select-locations)); otherwise pass it yourself if available | `"FR1813"` |
 | `passenger_booking_reference` | Booking or PNR reference | `"ABC123"` |
 
 Example:
@@ -289,6 +289,18 @@ The app always shows a language selection screen before the conversation starts.
 English · Arabic · Chinese · Dutch · French · German · Hindi · Japanese · Portuguese · Spanish · Turkish
 
 The AI agent responds in the selected language for the entire conversation. No configuration is required on your end.
+
+---
+
+## Boarding Pass Scanning (select locations)
+
+Some locations are configured with a physical barcode/boarding-pass scanner at the kiosk. For these locations, the app automatically inserts a **mandatory scan screen** between language selection and the start of the conversation — the passenger scans their boarding pass, and the parsed data (`passenger_name`, `passenger_flight_number`, `passenger_booking_reference`) is used to start the conversation with full context already available.
+
+This is configured entirely by Mantawise via the location registry — there is no prop to enable or disable it, and no action is required on your end. Currently enabled for: **JFK, LTN, AMS**.
+
+If your location has a barcode scanner and you'd like this enabled, let Mantawise know during onboarding.
+
+**Precedence**: if you also pass any of these keys yourself via the `context` prop, the scanned data takes priority whenever a scan succeeds.
 
 ---
 
